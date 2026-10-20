@@ -236,8 +236,7 @@
     statusElement.className = `status-badge ${complaintStatusClass(complaint.status)}`;
     statusElement.textContent = complaint.status;
     $("#studentDetailGrid").innerHTML = [
-      detailItem("Student name", complaint.studentName),
-      detailItem("Student ID", complaint.studentId),
+      detailItem("Reporter identity", "Hidden for privacy. Only authorized administrators can view student details."),
       detailItem("Category", complaint.category),
       detailItem("Location", complaint.location),
       detailItem("Priority", complaint.priority),
@@ -311,6 +310,16 @@
   function initStudent() {
     setupSectionNavigation();
     setupComplaintForm();
+    const requestedCategory = new URLSearchParams(window.location.search).get("category");
+    const categorySelect = document.querySelector('#complaintForm select[name="category"]');
+    if (requestedCategory && categorySelect) {
+      const matchingOption = [...categorySelect.options].find((option) => option.textContent.trim() === requestedCategory);
+      if (matchingOption) {
+        categorySelect.value = matchingOption.value;
+        const registerNav = document.querySelector('.nav-item[data-section="register"]');
+        if (registerNav) registerNav.click();
+      }
+    }
     renderStudent();
     const search = $("#studentSearch");
     if (search) search.addEventListener("input", () => renderStudentTable());
@@ -445,7 +454,7 @@
   // Demonstration-only client-side gate. This is not production authentication:
   // the PIN is present in frontend code and can be bypassed by a determined user.
   const ADMIN_DEMO_PIN = "2468";
-  const ADMIN_SESSION_KEY = "gniot_campuscare_admin_demo_session";
+  const ADMIN_SESSION_KEY = "campuscare_admin_demo_session";
 
   function showAdminGate() {
     const gate = document.createElement("section");
@@ -454,7 +463,7 @@
     gate.setAttribute("aria-labelledby", "adminGateTitle");
     gate.innerHTML = `
       <div class="admin-gate-card">
-        <a class="gate-brand" href="index.html" aria-label="GNIOT CampusCare home"><span class="gate-brand-mark">G</span><span>GNIOT <b>CampusCare</b></span></a>
+        <a class="gate-brand" href="index.html" aria-label="CampusCare home"><span class="gate-brand-mark">G</span><span><b>CampusCare</b></span></a>
         <div class="gate-lock-icon" aria-hidden="true">↗</div>
         <p class="gate-eyebrow">CAMPUS OPERATIONS</p>
         <h1 id="adminGateTitle">Good to have you back.</h1>
@@ -465,7 +474,7 @@
           <p class="gate-error" id="adminGateError" role="alert" aria-live="polite"></p>
           <button class="button button-primary gate-submit" type="submit">Continue <span aria-hidden="true">→</span></button>
         </form>
-        <p class="gate-footnote">Administrator access · GNIOT CampusCare</p>
+        <p class="gate-footnote">Administrator access · CampusCare</p>
         <a class="gate-back" href="index.html">← Back to home</a>
       </div>`;
     document.body.appendChild(gate);

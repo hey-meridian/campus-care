@@ -1,6 +1,6 @@
-# GNIOT CampusCare
+# CampusCare
 
-GNIOT CampusCare is a beginner-friendly college mini-project for reporting, tracking, and resolving campus maintenance complaints.
+CampusCare is a beginner-friendly college mini-project for reporting, tracking, and resolving campus maintenance complaints.
 
 ## Run it
 
@@ -38,7 +38,7 @@ All complaints are stored in the browser's LocalStorage under:
 campuscare_complaints
 ```
 
-The first launch creates four realistic sample complaints. They are not recreated on later page loads. To reset the demo, clear the browser's LocalStorage for the page and refresh.
+The landing page includes ten report categories inspired by the supplied reference: classroom and smartboard, fan/AC/electrical, furniture and lab damage, playground and sports kit, hostel and mess food, exams and hall tickets, fee accounts and scholarships, bus and campus transport, sanitation and water cooler, and internet/network. Anti-ragging and external escalation portals are intentionally excluded. Category cards preselect the category in the inquiry form. The first launch creates four realistic sample complaints. They are not recreated on later page loads. To reset the demo, clear the browser's LocalStorage for the page and refresh.
 
 ## Notes
 
@@ -49,6 +49,13 @@ The first launch creates four realistic sample complaints. They are not recreate
 
 ## Design and security notes
 
-- The interface uses a light, minimal visual system with system fonts, white surfaces, graphite text, and blue accents.
+- The interface uses a light, minimal visual system with warm off-white page surfaces, white cards, graphite text, and an electric-periwinkle acrylic accent on the CampusCare tip card.
 - The project intentionally remains plain HTML, CSS, and JavaScript for easy static hosting and a straightforward GitHub workflow.
 - For real deployment, replace the demo PIN gate with server-side authentication and authorization before exposing the admin console publicly.
+
+
+## Demo details
+- Demo support contact shown in the interface: +91 120 456 7890
+- Demo address shown in the interface: Knowledge Park II, Greater Noida, Uttar Pradesh 201306
+- These are presentation/demo contact details and should be replaced with verified official details before public deployment.
+- The administrator PIN gate is client-side demo authentication, not production security.

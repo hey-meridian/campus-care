@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="GNIOT CampusCare Student Portal" />
-  <title>Student Portal | GNIOT CampusCare</title>
+  <meta name="description" content="CampusCare Student Portal" />
+  <title>Student Portal | CampusCare</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
@@ -14,7 +14,7 @@
   <div class="mobile-overlay" id="mobileOverlay"></div>
   <aside class="app-sidebar" id="appSidebar">
     <div class="sidebar-top">
-      <a class="brand brand-dark" href="index.html"><span class="brand-mark dark-mark"><span></span><span></span><span></span></span><span>GNIOT <span class="brand-accent">CampusCare</span></span></a>
+      <a class="brand brand-dark" href="index.html"><span class="brand-mark dark-mark"><span></span><span></span><span></span></span><span><span class="brand-accent">CampusCare</span></span></a>
       <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">×</button>
     </div>
     <div class="portal-label">STUDENT PORTAL</div>
@@ -26,7 +26,7 @@
     <div class="sidebar-bottom">
       <div class="sidebar-help">
         <span class="help-icon">?</span>
-        <div><b>Need help?</b><small>Contact campus support</small></div>
+        <div><b>Need help?</b><small>+91 120 456 7890</small><small>Knowledge Park II, Greater Noida</small></div>
       </div>
       <a href="index.html" class="nav-item home-item"><span class="nav-icon">↩</span> Back to Home</a>
     </div>
@@ -76,7 +76,7 @@
           <div class="form-grid">
             <label class="field"><span>Student Name <b>*</b></span><input type="text" name="studentName" placeholder="e.g. Aarav Sharma" autocomplete="name" required /></label>
             <label class="field"><span>Student ID <b>*</b></span><input type="text" name="studentId" placeholder="Enter any student ID" autocomplete="off" required /></label>
-            <label class="field"><span>Category <b>*</b></span><select name="category" required><option value="">Select a category</option><option>Electrical</option><option>Plumbing</option><option>Cleaning</option><option>Furniture</option><option>Internet/Network</option><option>Classroom Equipment</option><option>Other</option></select></label>
+            <label class="field"><span>Category <b>*</b></span><select name="category" required><option value="">Select a category</option><option>Classroom &amp; Smartboard</option><option>Fan, AC &amp; Electrical</option><option>Furniture &amp; Lab Damage</option><option>Playground &amp; Sports Kit</option><option>Hostel &amp; Mess Food</option><option>Exams &amp; Hall Tickets</option><option>Fee Accounts &amp; Scholarships</option><option>Bus &amp; Campus Transport</option><option>Sanitation &amp; Water Cooler</option><option>Internet &amp; Network</option><option>Other</option></select></label>
             <label class="field"><span>Priority <b>*</b></span><select name="priority" required><option value="">Select priority</option><option>Low</option><option>Medium</option><option>High</option></select></label>
             <label class="field field-full"><span>Location <b>*</b></span><input type="text" name="location" placeholder="e.g. CSE Block - Room 302" required /></label>
             <label class="field field-full"><span>Description <b>*</b></span><textarea name="description" rows="5" placeholder="Describe the issue clearly so the maintenance team can help..." required></textarea><small class="field-hint">Include useful details such as what is broken and when you noticed it.</small></label>
@@ -94,7 +94,7 @@
   </div>
 
   <div class="modal-backdrop hidden" id="studentDetailModal"><div class="modal detail-modal" role="dialog" aria-modal="true" aria-labelledby="studentDetailTitle"><button class="modal-close" data-close-modal="studentDetailModal" aria-label="Close">×</button><div class="modal-top"><div class="modal-id-label">COMPLAINT DETAILS</div><span class="status-badge" id="studentDetailStatus">Pending</span></div><h2 id="studentDetailTitle">CMP001</h2><p class="modal-subtitle" id="studentDetailDate">Submitted on 19 September 2026</p><div class="detail-grid" id="studentDetailGrid"></div><div class="remark-box" id="studentRemarkBox"><span class="remark-label">ADMIN REMARK</span><p id="studentDetailRemark">No remark has been added yet.</p></div><div class="progress-tracker" id="studentProgressTracker"></div></div></div>
-  <div class="modal-backdrop hidden" id="successModal"><div class="modal success-modal" role="dialog" aria-modal="true" aria-labelledby="successTitle"><button class="modal-close" data-close-modal="successModal" aria-label="Close">×</button><div class="success-check">✓</div><p class="section-kicker">ALL SET</p><h2 id="successTitle">Complaint submitted<br /><em>successfully.</em></h2><p>Your issue is now in the GNIOT CampusCare system. Keep this ID to track its progress.</p><div class="success-id-card"><span>COMPLAINT ID</span><strong id="successComplaintId">CMP005</strong><span class="status-badge badge-pending">Pending</span></div><div class="modal-actions"><button class="button button-subtle" data-close-modal="successModal">Close</button><button class="button button-primary" id="successViewButton">View Complaint <span>→</span></button></div></div></div>
+  <div class="modal-backdrop hidden" id="successModal"><div class="modal success-modal" role="dialog" aria-modal="true" aria-labelledby="successTitle"><button class="modal-close" data-close-modal="successModal" aria-label="Close">×</button><div class="success-check">✓</div><p class="section-kicker">ALL SET</p><h2 id="successTitle">Complaint submitted<br /><em>successfully.</em></h2><p>Your issue is now in the CampusCare system. Keep this ID to track its progress.</p><div class="success-id-card"><span>COMPLAINT ID</span><strong id="successComplaintId">CMP005</strong><span class="status-badge badge-pending">Pending</span></div><div class="modal-actions"><button class="button button-subtle" data-close-modal="successModal">Close</button><button class="button button-primary" id="successViewButton">View Complaint <span>→</span></button></div></div></div>
   <script src="script.js"></script>
 </body>
 </html>
