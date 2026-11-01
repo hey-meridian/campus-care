@@ -1,102 +1,138 @@
-# CampusCare Enterprise v2.0 — Full-Stack Campus Maintenance, SLA & Grievance Platform
+# CampusCare v4.1
 
-**CampusCare Enterprise v2.0** is a ground-up, production-grade full-stack rebuild of [`hey-meridian/campus-care`](https://github.com/hey-meridian/campus-care). It replaces the original client-only `localStorage` mini-project with a real relational database architecture, JWT authentication, Role-Based Access Control (RBAC), real-time multi-device synchronization, automated SLA tracking, a Technician Work-Order Console, an interactive Analytics & SLA Command Center, and a Confidential Anti-Ragging & Safety Ombudsperson Portal.
+CampusCare is a college project prototype for reporting, browsing, tracking, and managing campus maintenance complaints. This v4.1 release focuses on the student-facing experience, a 24-hour service-window indicator, and a cleaner campus-themed landing page.
 
----
+> **Project status:** Classroom/demo prototype. It is not a production-ready college grievance system. Use fictional data for demonstrations and do not submit real student or sensitive information.
 
-## 1. How Every Drawback in the Original Project Was Solved
+## What’s included in v4.1
 
-| Original Drawback (`hey-meridian/campus-care`) | Industry-Grade Solution in CampusCare v2.0 |
-| :--- | :--- |
-| **No Backend / `localStorage` Volatility** (`campuscare_complaints` lost on cache clear or incognito) | **ACID-Compliant SQLite3 Relational Database** (`users`, `complaints`, `complaint_timeline`, `complaint_upvotes`, `confidential_reports`, `audit_logs`) with **Node.js + Express** (`server/server.js`) AND a **Zero-Dependency Python 3 + SQLite Server** (`backend_python/server.py`). |
-| **Insecure Hardcoded PIN (`2468`)** in `script.js` | **JWT (HMAC-SHA256) Authentication + PBKDF2/Bcrypt Password Hashing + RBAC Middleware** (`student`, `technician`, `admin`) with server-side role verification and immutable security audit logs. |
-| **No Multi-User / Cross-Device Sync** | **Server-Sent Events (`GET /api/stream`) + `BroadcastChannel` Live Sync** pushes newly created complaints, status changes, upvotes, and escalations across browsers and tabs in real time. |
-| **Excludes Anti-Ragging & External Escalation Portals** | **Confidential Safety, Anti-Ragging & Multi-Tier SLA Escalation Module** with zero-knowledge anonymous reporting, encrypted tracking tokens (`SAFE-XXXX-XX`), 3-tier administrative escalation (HOD/Warden -> Dean of Student Welfare -> Campus Director/UGC Helpline), and emergency quick-dispatch. |
-| **Static Multi-Page UI with Minimal Workflow** | **Modern Responsive SPA (`public/index.html`)** with Dark/Light themes, Command Palette (`Ctrl+K` / `Cmd+K`), Kanban Board + Table + Card views, SLA countdown badges, Community Upvoting ("Affects Me Too"), Step-by-Step Audit Timeline, Chart.js Analytics, CSV/JSON Export, and 5-Star Resolution Verification. |
+### Student experience
+- Landing page with three featured complaint cards, showing the three most recently reported issues.
+- Student Portal with the full showcase complaint directory.
+- Complaint cards with category, status, ticket details, and upvote information.
+- Search and filters for category, status, and ticket details.
+- Sorting by newest, oldest, and upvotes.
+- Complaint submission and tracking actions in the student-facing interface.
 
----
+### 24-hour service window
+- Each complaint displays a 24-hour service-window indicator based on its report timestamp.
+- Open complaints show the time remaining or how long the 24-hour window has been exceeded.
+- Resolved complaints show whether they were resolved within or after the 24-hour window.
+- The 24-hour period is a service target shown for the project demonstration, not a guaranteed repair deadline. Actual resolution can depend on weekends, staff availability, specialist support, and parts.
 
-## 2. Project Structure
+### Admin experience
+- Separate admin interface for reviewing and updating complaint status and remarks.
+- The admin dashboard retains a table-based management layout.
+
+### Visual design
+- Responsive campus-themed interface.
+- Final approved hero illustration at `public/assets/campuscare-hero-final.png`.
+- Hero callouts:
+  - **24-Hour Resolution:** We aim to resolve every report within 24 hours.
+  - **Track at Every Step:** Follow your report from submission to resolution.
+
+## Project structure
 
 ```text
-campus-care-v2/
-├── package.json                 # Node.js dependencies & npm scripts
-├── .env.example                 # Environment variables template (PORT, JWT_SECRET, DB_PATH)
-├── README.md                    # Architecture, API documentation, and setup guide
-├── server/
-│   ├── server.js                # Express REST API + Server-Sent Events (SSE) real-time hub
-│   ├── db.js                    # SQLite3 relational schema, SLA calculator, and seed data
-│   └── middleware/
-│       └── auth.js              # JWT token signing/verification, RBAC, and audit logging
+campus-care/
 ├── backend_python/
-│   └── server.py                # Zero-dependency Python 3 + SQLite3 REST API server alternative
-└── public/
-    └── index.html               # Self-contained responsive SPA (Dual-Mode Live API + Fallback)
+│   └── server.py
+├── public/
+│   ├── assets/
+│   │   └── campuscare-hero-final.png
+│   ├── admin.html
+│   ├── index.html
+│   ├── script.js
+│   ├── student.html
+│   └── style.css
+├── server/
+│   ├── middleware/
+│   │   └── auth.js
+│   ├── db.js
+│   └── server.js
+├── .env.example
+├── package.json
+└── README.md
 ```
 
----
+## Technology
 
-## 3. Quick Start Guide
+- HTML, CSS, and JavaScript for the frontend.
+- Node.js and Express for the primary backend.
+- SQLite using `better-sqlite3` for complaint data.
+- JWT support for the administrator login flow.
+- A Python server alternative is included in `backend_python/server.py`.
 
-### Option A: Run with Node.js + Express + SQLite
-```bash
-npm install
-cp .env.example .env
-npm start
-# Open http://localhost:3000
-```
+## Run locally
 
-### Option B: Run Instantly with Python 3 (Zero External Dependencies)
+### Requirements
+- Node.js (LTS recommended) and npm.
+- Alternatively, Python 3 for the included Python server.
+
+### Option A: Node.js backend
+
+1. Clone or download this repository.
+2. Open a terminal in the project root (the folder containing `package.json`).
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Copy `.env.example` to `.env` if you want to configure environment variables.
+5. Start the server:
+
+   ```bash
+   npm start
+   ```
+
+6. Open [http://localhost:3000](http://localhost:3000).
+
+The Express server serves the frontend from `public/` and exposes the API routes used by the interface.
+
+### Option B: Python server
+
+Run:
+
 ```bash
 python3 backend_python/server.py
-# Open http://localhost:3000
 ```
 
-### Demo Role Credentials (Pre-Seeded in Database)
-| Role | Email | Password | Capabilities |
-| :--- | :--- | :--- | :--- |
-| **Student** | `aarav.sharma@campus.edu` | `Student@123` | Submit complaints, attach diagnostic tags, upvote issues, escalate overdue tickets, rate resolved issues |
-| **Technician / Staff** | `rajesh.elec@campus.edu` | `Tech@123` | View assigned department work orders, update status (`Triaged`, `In Progress`, `Verification Pending`, `Resolved`), log technical remarks |
-| **Administrator** | `dean.estates@campus.edu` | `Admin@2026` | Full command center access, technician dispatch, SLA monitoring, confidential safety docket review, audit logs, CSV/JSON export, seed reset |
+Then open [http://localhost:3000](http://localhost:3000).
 
----
+Use the Node.js option if you want to run the primary Express backend.
 
-## 4. REST API Endpoints
+## Demo behaviour and data
 
-- `GET /api/health` — Service health, database mode, and active real-time client count
-- `GET /api/stream` — Server-Sent Events (SSE) stream for live cross-device updates
-- `POST /api/auth/login` — Authenticate with email/password and receive a signed JWT
-- `POST /api/auth/register` — Register a new Student or Technician account
-- `GET /api/complaints` — List complaints with search, category, status, and priority filters, enriched with chronological audit timelines
-- `POST /api/complaints` — Create a new complaint (`CMP001`...), auto-assign department, and compute SLA deadline (`Critical`: 4h, `High`: 24h, `Medium`: 48h, `Low`: 72h)
-- `PATCH /api/complaints/:id/status` — *(Admin/Technician RBAC)* Update status, assignee, and technical remarks
-- `POST /api/complaints/:id/upvote` — Toggle "Affects Me Too" community impact upvote
-- `POST /api/complaints/:id/escalate` — Trigger multi-tier escalation (Levels 1–3)
-- `POST /api/complaints/:id/feedback` — Submit 1–5 star student verification rating on resolved tickets
-- `GET /api/confidential` & `POST /api/confidential` — Submit or look up zero-knowledge Confidential Anti-Ragging & Safety reports by token (`SAFE-XXXX-XX`)
-- `GET /api/analytics` — Aggregated SLA compliance metrics, category distribution, and security audit logs
+- The project includes fictional showcase complaint records for presentation purposes.
+- The browser interface has local-storage fallback behaviour when the API is unavailable. Data saved only in browser local storage is specific to that browser/profile and is not a shared central record.
+- When the backend is running and reachable, the frontend can use the complaint API.
+- The current demonstration admin gate uses a demo passcode. The code contains demo credentials/fallback values; these must be replaced and the authentication, authorization, and data-access controls reviewed before any real deployment.
+- Do not expose real student names, IDs, contact details, credentials, or confidential complaints in a public repository or demo.
 
+## API routes in the Node.js server
 
-## Presentation showcase data and 24-hour service window
+| Method | Route | Purpose |
+|---|---|---|
+| `GET` | `/api/health` | Check server and database status |
+| `POST` | `/api/auth/login` | Administrator login |
+| `GET` | `/api/complaints` | Retrieve complaints |
+| `POST` | `/api/complaints` | Create a complaint |
+| `POST` | `/api/complaints/:id/upvote` | Update complaint upvotes |
+| `PATCH` | `/api/complaints/:id` | Update complaint status and/or remark |
 
-The frontend seeds 30 fictional showcase complaints in browser local storage (4 original examples plus 26 additional sample issues). These records are for a classroom presentation/demo only. They are not real campus reports. Existing locally saved complaints are preserved and the showcase records are added if their ticket IDs are missing.
+## Important deployment notes
 
-The public landing page displays the full complaint wall in a vertically scrollable card grid with ticket/category/status filters and newest, oldest, and most-upvoted sorting. Each complaint shows its current status and a 24-hour service-window indicator calculated from its report timestamp. Open issues show time remaining or overdue duration; resolved issues show whether they were closed within or after the 24-hour window.
+- The frontend makes relative API requests, so the frontend and API should be served from the same origin unless the API configuration is deliberately changed.
+- A static GitHub Pages deployment can host frontend files, but it cannot run the Node.js or Python backend. Backend API features require a server host.
+- SQLite database files and `.env` files should not be committed to GitHub.
+- The included code has not been security-audited or validated for production use. Do not treat the demo admin gate or current API as secure authentication for a real institution.
+- Before real deployment, configure strong secrets outside source control, restrict CORS and API access, implement proper user authentication and authorization, validate inputs, protect personal data, and use persistent database storage.
 
-The 24-hour window is presented as a service target, not a guaranteed repair promise. Weekend work and specialist/parts availability can extend resolution time. No student account/login is required for the current demonstration flow. The existing admin demo gate remains unchanged.
+## Repository
 
-For presentation use, keep the records fictional and do not enter real student or sensitive information.
+GitHub: [hey-meridian/campus-care](https://github.com/hey-meridian/campus-care)
 
+## Version
 
-## Complaint directory placement (v4 placement correction)
-
-The landing page keeps its original three featured complaint cards and the existing homepage layout. The full 30-record complaint directory, category/status/ticket filters, sorting, vertical scrolling, upvotes, tracking actions and 24-hour SLA indicators are displayed inside Student Portal → All Campus Issues. The student portal's plain complaint table has been replaced by the card layout; the admin dashboard remains a table-based management view.
-
-
-## Final approved landing-page artwork
-
-The landing-page hero uses `public/assets/campuscare-hero-final.png`. The approved illustration replaces the CSS-drawn campus artwork and contains the final callouts:
-- **24-Hour Resolution** — We aim to resolve every report within 24 hours.
-- **Track at Every Step** — Follow your report from submission to resolution.
-
-The weekend/specialist-team caveat remains in the separate homepage copy, not inside the illustration. Keep the image in the same `public/assets` path when deploying or moving the project.
+**CampusCare v4.1 | Final showcase release**
