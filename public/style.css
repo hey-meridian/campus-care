@@ -1262,30 +1262,13 @@ button, input, select, textarea { font-family: var(--font-body); }
   .student-issue-card { padding: 21px; gap: 18px; }
 }
 
-
-/* Final approved CampusCare hero artwork */
+/* Decorative hero artwork is part of the page layout, not a draggable/selectable asset. */
+.refresh-hero-art,
+.refresh-hero-art * {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
 .refresh-hero-art {
-  min-height: 0;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  isolation: auto;
-}
-.refresh-hero-illustration {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-width: 680px;
-  object-fit: contain;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-}
-@media (max-width: 1050px) {
-  .refresh-hero-art { width: 100%; }
-  .refresh-hero-illustration { max-width: 620px; margin-inline: auto; }
-}
-@media (max-width: 650px) {
-  .refresh-hero-illustration { width: 108%; max-width: none; margin-inline: -4%; }
+  pointer-events: none;
 }
